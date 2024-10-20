@@ -1,39 +1,41 @@
-
-</html>
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Task Management App</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>To-do list</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
     <div class="app-container">
-        <h1>Sticky Wall</h1>
-        <div id="taskBoard" class="task-board">
-            <!-- Task boxes will go here -->
-            <div class="add-task-box" id="addTaskBox">
-                <span class="plus-sign">+</span>
-            </div>
+      <h1>Sticky Wall</h1>
+      <div id="taskBoard" class="task-board">
+        <!-- Existing Task Boards will be placed here -->
+        <div class="add-task-box" id="addTaskBox">
+          <span class="plus-sign">+</span>
         </div>
-    </div>
+      </div>
 
-    <!-- Task Modal -->
-    <div id="taskModal" class="modal">
+      <!-- Modal Structure -->
+      <div id="taskModal" class="modal">
         <div class="modal-content">
-            <span class="close-button">&times;</span>
-            <h2>Add Task</h2>
-            <input type="text" id="taskTitleInput" placeholder="Task Title">
-            <textarea id="taskItemTextarea" placeholder="Task Details"></textarea>
-            <button id="saveTaskButton" class="savetaskbtn">Save Task</button>
+          <span class="close-button">&times;</span>
+          <h2>Add New Task</h2>
+          <input
+            type="text"
+            id="taskTitleInput"
+            placeholder="Enter task title..."
+          />
+          <textarea
+            id="taskItemTextarea"
+            placeholder="Enter your to-do list"
+            rows="5"
+            style="resize: none"
+          ></textarea>
+          <button id="saveTaskButton" class="savetaskbtn">Save Task</button>
         </div>
+      </div>
     </div>
-
-    <script>
-       
-    </script>
-     <script src="script.js"></script>
-</body>
+    <script src="script.js"></script>
+  </body>
 </html>
