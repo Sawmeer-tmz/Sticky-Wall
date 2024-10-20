@@ -3,26 +3,39 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Sticky Wall</title>
-    <link rel="stylesheet" href="styles.css" />
+    <title>To-do list</title>
+    <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <div class="container">
-      <h1 class="header">Sticky Wall</h1>
-      <button class="add-button" id="addBtn">+</button>
-      <div id="stickyContainer" class="sticky-container"></div>
-    </div>
+    <div class="app-container">
+      <h1>Sticky Wall</h1>
+      <div id="taskBoard" class="task-board">
+        <!-- Existing Task Boards will be placed here -->
+        <div class="add-task-box" id="addTaskBox">
+          <span class="plus-sign">+</span>
+        </div>
+      </div>
 
-    <div class="popup" id="popup">
-      <input type="text" id="titleInput" placeholder="Title" />
-      <textarea
-        id="listInput"
-        placeholder="Add items (separate by commas)"
-      ></textarea>
-      <button id="saveBtn">Add Task</button>
-      <button id="closeBtn">Close</button>
+      <!-- Modal Structure -->
+      <div id="taskModal" class="modal">
+        <div class="modal-content">
+          <span class="close-button">&times;</span>
+          <h2>Add New Task</h2>
+          <input
+            type="text"
+            id="taskTitleInput"
+            placeholder="Enter task title..."
+          />
+          <textarea
+            id="taskItemTextarea"
+            placeholder="Enter your to-do list"
+            rows="5"
+            style="resize: none"
+          ></textarea>
+          <button id="saveTaskButton" class="savetaskbtn">Save Task</button>
+        </div>
+      </div>
     </div>
-
     <script src="script.js"></script>
   </body>
 </html>
