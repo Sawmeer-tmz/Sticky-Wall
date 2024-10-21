@@ -25,6 +25,9 @@ body {
     color: #333;
     margin-top: 0;
   }
+  h2{
+    margin-top: 5px;
+  }
   
   .task-board {
     display: flex;
@@ -33,19 +36,6 @@ body {
     justify-content: flex-start;
   }
   
-  /* .task-box {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start; 
-    padding: 10px 20px; 
-    border-radius: 10px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-    width: calc(33% - 17px);
-    min-height: 250px;
-    position: relative;
-    background-color: #fdf2b3;
-    box-sizing: border-box;
-  } */
   .task-box {
     display: flex;
     flex-direction: column;
@@ -54,7 +44,7 @@ body {
     border-radius: 10px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
     width: calc(33% - 17px);
-    min-height: 300px;
+    min-height: 250px;
     position: relative;
     background-color: #fdf2b3;
     box-sizing: border-box;
@@ -62,41 +52,64 @@ body {
     overflow-wrap: break-word; /* Add this */
     cursor: pointer;
   }
-  .task-box::after {
+  /* .task-box::after {
     content: "Double-click to remove task";
-    /* margin-top: 10px; */
     position:absolute;
     bottom: 20px;
-    /* right: 10px; */
-    /* width: 100%; */
-    /* background-color: rgba(0, 0, 0, 0.7); */
     color: #d92c0e;
-    /* padding: 10px; */
-    /* border-radius: 5px; */
     font-size: 14px;
     opacity: 0;
     transition: opacity 0.3s ease;
     pointer-events: none;
+  } */
+   /* Style for the delete "X" button */
+.delete-button {
+  position: absolute;
+  top: 14px;
+  right: 7px;
+  color: #aaa;
+  cursor: pointer;
+  font-weight: 500;
+  font-family: initial;
+  /* letter-spacing: revert-layer; */
+  float: right;
+  font-size: 36px;
+  /* opacity: 0; */
+}
+.delete-button:hover,
+  .delete-button:focus {
+    color: rgba(0, 0, 0, 0.466);
+    text-decoration: none;
+    cursor: pointer;
+    opacity: 1;
   }
+
   .task-box:hover::after {
     opacity: 1; /* Shows the tooltip on hover */
   }
   
-  .task-box:nth-child(2n) {
-    background-color: #d1eaed; /* Light Blue */
-  }
   
-  .task-box:nth-child(3n) {
-    background-color: #ffdada; /* Light Pink */
-  }
-  
-  .task-box:nth-child(4n) {
-    background-color: #ffd4a9; /* Light Orange */
-  }
+/* Color cycle for task boxes */
+.task-box:nth-child(4n+1) {
+  background-color: #fdf2b3; /* Yellow */
+}
+
+.task-box:nth-child(4n+2) {
+  background-color: #d1eaed; /* Light Blue */
+}
+
+.task-box:nth-child(4n+3) {
+  background-color: #ffdada; /* Light Pink */
+}
+
+.task-box:nth-child(4n+4) {
+  background-color: #ffd4a9; /* Light Orange */
+}
   
   .task-box h2 {
     font-size: 20px;
     margin-top: 10px;
+    margin-right: 7px;
     margin-bottom: 10px;
     padding: 5px 0;
     word-wrap: break-word;
@@ -139,7 +152,7 @@ body {
   }
   
   .savetaskbtn {
-    background-color: #059862;
+    background-color:#297c54;
     padding: 10px 20px;
     font-size: 14px;
     color: #efffff;
@@ -155,7 +168,7 @@ body {
     margin-bottom: 10px;
     color: #000000;
     line-height: 1.5;
-    text-align: justify;
+    /* text-align: justify; */
     word-wrap: break-word; /* Add this */
     overflow-wrap: break-word; /* Add this */
     white-space: normal; /* Ensures text wraps correctly */
@@ -166,9 +179,9 @@ body {
     display: flex;
     justify-content: flex-end;
   } */
-  #taskModal {
+  /* #taskModal {
     display: none;
-  }
+  } */
   
   .modal {
     display: flex;
@@ -184,7 +197,8 @@ body {
   }
   
   .modal-content {
-    background-color: #fefefe;
+    background-color:#f0f5f0;
+    position: relative;
     margin: 10px auto;
     padding: 20px;
     border: 1px solid #888;
@@ -196,14 +210,20 @@ body {
   
   
   .close-button {
+ font-weight: 100;
+ font-family: initial;
+    /* margin-top:15px; */
+    position: absolute;
+    top: 15px;
+    right:18px;
     color: #aaa;
     float: right;
-    font-size: 28px;
+    font-size: 36px;
   }
   
   .close-button:hover,
   .close-button:focus {
-    color: black;
+  color: rgba(0, 0, 0, 0.466);;
     text-decoration: none;
     cursor: pointer;
   }
@@ -225,9 +245,10 @@ body {
   }
   @media (max-width: 768px) {
 
-    .task-box::after {
+    /* .task-box::after {
+      content: "Double-tap to remove task";
         opacity: 1;
-      }
+      } */
   }
   
   @media (max-width: 580px) {
@@ -237,7 +258,7 @@ body {
     }
   
     h1 {
-      font-size: 40px;
+      font-size: 35px;
     }
     .app-container {
       padding: 25px;
