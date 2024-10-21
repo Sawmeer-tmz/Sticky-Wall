@@ -1,10 +1,11 @@
-// const taskBoard = document.getElementById("taskBoard");
+// Constants for the elements
 const addTaskBox = document.getElementById("addTaskBox");
 const taskModal = document.getElementById("taskModal");
 const closeButton = document.querySelector(".close-button");
 const saveTaskButton = document.getElementById("saveTaskButton");
 const taskTitleInput = document.getElementById("taskTitleInput");
 const taskItemTextarea = document.getElementById("taskItemTextarea");
+const taskBoard = document.getElementById("taskBoard");
 
 // Open the modal when the add task box is clicked
 addTaskBox.addEventListener("click", function () {
@@ -39,6 +40,18 @@ saveTaskButton.addEventListener("click", function () {
   taskTitle.textContent = title;
   taskBox.appendChild(taskTitle);
 
+  // Create the "X" button for deletion
+  const deleteButton = document.createElement("span");
+  deleteButton.classList.add("delete-button");
+  deleteButton.innerHTML = "&times;";
+  deleteButton.addEventListener("click", function () {
+    if (confirm(`Are you sure you want to delete the task "${title}"?`)) {
+      taskBoard.removeChild(taskBox);
+      removeTaskFromLocalStorage(taskId);
+    }
+  });
+  taskBox.appendChild(deleteButton);
+
   // Create a container for to-do items
   const taskList = document.createElement("div");
   const todos = todoText.split("\n");
@@ -51,14 +64,6 @@ saveTaskButton.addEventListener("click", function () {
     }
   });
   taskBox.appendChild(taskList);
-
-  // Add double-click event to ask for deletion
-  taskBox.addEventListener("dblclick", function () {
-    if (confirm(`Are you sure you want to delete the task "${title}"?`)) {
-      taskBoard.removeChild(taskBox);
-      removeTaskFromLocalStorage(taskId);
-    }
-  });
 
   // Append the task box to the task board
   taskBoard.insertBefore(taskBox, addTaskBox);
@@ -93,11 +98,23 @@ function loadTasksFromLocalStorage() {
 
     const taskBox = document.createElement("div");
     taskBox.classList.add("task-box");
-    taskBox.setAttribute("data-id", id);  // Set the unique ID as a data attribute
+    taskBox.setAttribute("data-id", id);
 
     const taskTitle = document.createElement("h2");
     taskTitle.textContent = title;
     taskBox.appendChild(taskTitle);
+
+    // Create the "X" button for deletion
+    const deleteButton = document.createElement("span");
+    deleteButton.classList.add("delete-button");
+    deleteButton.innerHTML = "&times;";
+    deleteButton.addEventListener("click", function () {
+      if (confirm(`Are you sure you want to delete the task "${title}"?`)) {
+        taskBoard.removeChild(taskBox);
+        removeTaskFromLocalStorage(id);
+      }
+    });
+    taskBox.appendChild(deleteButton);
 
     const taskList = document.createElement("div");
     todos.forEach((todo) => {
@@ -107,14 +124,6 @@ function loadTasksFromLocalStorage() {
       taskList.appendChild(taskItem);
     });
     taskBox.appendChild(taskList);
-
-    // Add double-click event to ask for deletion
-    taskBox.addEventListener("dblclick", function () {
-      if (confirm(`Are you sure you want to delete the task "${title}"?`)) {
-        taskBoard.removeChild(taskBox);
-        removeTaskFromLocalStorage(id);  // Use the unique ID for deletion
-      }
-    });
 
     taskBoard.insertBefore(taskBox, addTaskBox);
   });
@@ -130,6 +139,6 @@ function saveTaskToLocalStorage(id, title, todos) {
 // Function to remove a task from localStorage
 function removeTaskFromLocalStorage(id) {
   let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
-  tasks = tasks.filter((task) => task.id !== id);  // Use the unique ID for filtering
+  tasks = tasks.filter((task) => task.id !== id);
   localStorage.setItem("tasks", JSON.stringify(tasks));
 }
