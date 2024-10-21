@@ -26,9 +26,13 @@ saveTaskButton.addEventListener("click", function () {
     return;
   }
 
+  // Generate a unique ID for each task
+  const taskId = Date.now().toString();
+
   // Create the task box container
   const taskBox = document.createElement("div");
   taskBox.classList.add("task-box");
+  taskBox.setAttribute("data-id", taskId); // Set the unique ID as a data attribute
 
   // Create and append the title
   const taskTitle = document.createElement("h2");
@@ -52,15 +56,15 @@ saveTaskButton.addEventListener("click", function () {
   taskBox.addEventListener("dblclick", function () {
     if (confirm(`Are you sure you want to delete the task "${title}"?`)) {
       taskBoard.removeChild(taskBox);
-      removeTaskFromLocalStorage(title);
+      removeTaskFromLocalStorage(taskId);
     }
   });
 
   // Append the task box to the task board
   taskBoard.insertBefore(taskBox, addTaskBox);
 
-  // Save task to localStorage
-  saveTaskToLocalStorage(title, todos);
+  // Save task to localStorage with unique ID
+  saveTaskToLocalStorage(taskId, title, todos);
 
   // Close the modal and clear inputs
   clearModalInputs();
@@ -85,10 +89,11 @@ function loadTasksFromLocalStorage() {
   const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
 
   tasks.forEach((task) => {
-    const { title, todos } = task;
+    const { id, title, todos } = task;
 
     const taskBox = document.createElement("div");
     taskBox.classList.add("task-box");
+    taskBox.setAttribute("data-id", id);  // Set the unique ID as a data attribute
 
     const taskTitle = document.createElement("h2");
     taskTitle.textContent = title;
@@ -107,7 +112,7 @@ function loadTasksFromLocalStorage() {
     taskBox.addEventListener("dblclick", function () {
       if (confirm(`Are you sure you want to delete the task "${title}"?`)) {
         taskBoard.removeChild(taskBox);
-        removeTaskFromLocalStorage(title);
+        removeTaskFromLocalStorage(id);  // Use the unique ID for deletion
       }
     });
 
@@ -116,16 +121,15 @@ function loadTasksFromLocalStorage() {
 }
 
 // Function to save task to localStorage
-function saveTaskToLocalStorage(title, todos) {
+function saveTaskToLocalStorage(id, title, todos) {
   const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
-  tasks.push({ title, todos });
+  tasks.push({ id, title, todos });
   localStorage.setItem("tasks", JSON.stringify(tasks));
 }
 
 // Function to remove a task from localStorage
-function removeTaskFromLocalStorage(title) {
+function removeTaskFromLocalStorage(id) {
   let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
-  tasks = tasks.filter((task) => task.title !== title);
+  tasks = tasks.filter((task) => task.id !== id);  // Use the unique ID for filtering
   localStorage.setItem("tasks", JSON.stringify(tasks));
 }
-
