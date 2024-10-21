@@ -128,3 +128,4 @@ function removeTaskFromLocalStorage(title) {
   tasks = tasks.filter((task) => task.title !== title);
   localStorage.setItem("tasks", JSON.stringify(tasks));
 }
+
