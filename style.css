@@ -17,6 +17,11 @@ body {
     border: 2px solid black;
     padding: 40px;
     box-sizing: border-box;
+    /* centered the container */
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
   }
   
   h1 {
@@ -179,9 +184,9 @@ body {
     display: flex;
     justify-content: flex-end;
   } */
-  /* #taskModal {
+  #taskModal {
     display: none;
-  } */
+  }
   
   .modal {
     display: flex;
